@@ -60,3 +60,4 @@ for i in urls:
     data['text'] = driver.find_element_by_xpath('//div[@class="letter-body"]').text
     mails.insert_one(data)
     data = {}
+

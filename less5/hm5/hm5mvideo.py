@@ -30,7 +30,6 @@ while True:
             urls.add(href)
         break
 
-
 client = MongoClient('localhost', 27017)
 db = client['mvideo']
 hits_coll = db['hits']
