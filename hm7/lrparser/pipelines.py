@@ -9,6 +9,8 @@ from itemadapter import ItemAdapter
 from scrapy.pipelines.images import ImagesPipeline
 import scrapy
 from pymongo import MongoClient
+import hashlib
+from scrapy.utils.python import to_bytes
 from scrapy.http import HtmlResponse
 
 class LrparserPipeline:
@@ -47,6 +49,10 @@ class LrphotosPipeline(ImagesPipeline):
                     yield scrapy.Request(img)
                 except Exception as e:
                     print(e)
+
+    def file_path(self, request, response=None, info=None, *, item=None):
+        image_guid = hashlib.sha1(to_bytes(request.url)).hexdigest()
+        return f'{item["name"][0]}/{image_guid}.jpg'
 
     def item_completed(self, results, item, info):
         if results:
